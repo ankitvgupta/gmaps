@@ -2,10 +2,14 @@
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
     <style type="text/css">
       html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
+      body { height: 100%; margin: 0; padding: 0; position: relative; }
+
+      #map-canvas { height: 100%;}
     </style>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoy4V9-XPLR4x9uLqb6CKpT9VAeBxl-jY&sensor=true">
@@ -61,6 +65,25 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
-    <div id="map-canvas"/>
+  <div id ="sidediv" style ="position:absolute; z-index: 100;top: 100px;right: 10px;width: 270px;height: 400px; background: white;border-radius: 15px">
+    <br/>
+    <div id="selectorbuttons" style="position: relative; margin-left:40px; width = 100px">
+      <button type="button" class="btn btn-default">Walk</button>
+      <button type="button" class="btn btn-default">Run</button>
+      <button type="button" class="btn btn-default">Bike</button>
+     </div> 
+    <br/>
+    <select class="form-control" style = "width: 100px; margin-left: 100px">
+      <option value="anything">Anything</option>
+      <option value="tourist">Tourist Destinations</option>
+      <option value="food">Food</option>
+      <option value="museums">Museums</option>
+    </select>
+  </div>
+   <div id ="bottomdiv" style ="position:absolute; z-index: 100;bottom: 100px;left: 200px; width: 500px;height: 100px; background: white;border-radius: 15px">
+      TESTESTTEST
+  </div>
+  <div id="map-canvas" style="position: relative"/> 
+   
   </body>
 </html>
