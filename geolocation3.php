@@ -21,6 +21,7 @@
 
 
 traveltype = 'walk';
+var markers = [];
 
     google.maps.visualRefresh = true;
 function initialize() {
@@ -74,6 +75,7 @@ function createMarker(place) {
     map: map,
     position: place.geometry.location
   });
+  markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5");
@@ -82,16 +84,22 @@ function createMarker(place) {
 
 }
 
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
 function newRequest(){
 
   alert(traveltype);
-
+  setAllMap(null);
   // Set the default radius based on the mode of transport
   if (traveltype == 'walk'){
     radius = 500;
   }
   if (traveltype == 'bike'){
-    radius = 200;
+    radius = 2000;
   }
   if (traveltype == 'drive'){
     radius = 5000;
