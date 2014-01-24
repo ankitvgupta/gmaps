@@ -42,7 +42,8 @@ header3 {
 	background: url('img/header-bg.png');
 	height: 80px;
 	position: fixed;
-	margin-top: 30px;
+	margin-top: 0px;
+  padding-right: 50px;
 }
 
 #nav { width: 410px; float: right; margin-top: 20px; }
@@ -62,7 +63,7 @@ header3 {
 
 
 
-#nav li a { color: #fff; opacity:0.6; font-size: 16px; text-decoration: none; font-family: 'Wellfleet'; }
+#nav li a { color: #fff; opacity:0.6; font-size: 16px; text-decoration: none; font-family: 'Arvo';  }
 #nav li a.active { color: #fff; opacity:1; border-bottom: 2px solid #fff; }
 #nav li a:hover { color: #fff; opacity:1;  }
 
