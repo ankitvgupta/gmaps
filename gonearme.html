@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <title>Go Near Me</title>
+       <link rel="stylesheet" href="css/style.css"/>
+       <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+       <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'/>
+       <link href='http://fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'/>
+       <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'/>
+       <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'/>
+       <link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'/>
+       <link rel="stylesheet" type="text/css" href="gonearme.css"/>
+       <link rel="stylesheet" type="text/css" href="bootstrap-theme.css">
+       <link rel="stylesheet" type="text/css" href="bootstrap-theme.min.css">
+       <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+       <link rel="stylesheet" type="text/css" href="bootstrap.css">
+       
+
+
+
+
+
+</head>
+  <body>
+    <header id="header">
+    <div>
+    <div id="logo"><a href=""> Go Near Me </a></div>
+    <nav id="nav">
+        <ul>
+        <li><a href="#welcome" class = "smoothScroll" title="Next Section" >Welcome</a></li>
+        <li><a href="#walk" class = "smoothScroll" title="Next Section">Walk</a></li>
+        <li><a href="#bike" class = "smoothScroll" title="Next Section">Bike</a></li>
+        <li><a  href="#drive" class = "smoothScroll" title="Next Section">Drive</a></li>
+        <li><a href="#contact" class = "smoothScroll" title="Next Section">Contact</a></li>
+        </ul>
+    </nav>
+    </div>
+        <script>
+          $(document).ready(function() {
+          $('a[href*=#]').each(function() {
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+          && location.hostname == this.hostname
+          && this.hash.replace(/#/,'') ) {
+          var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+          var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+          if ($target) {
+          var targetOffset = $target.offset().top;
+          $(this).click(function() {
+                      $("#nav li a").removeClass("active");
+                      $(this).addClass('active');
+          $('html, body').animate({scrollTop: targetOffset}, 1000);
+          return false;
+          });
+          }
+          }
+          });
+
+          });
+                    $(document).ready(function() {
+            $('a[href*=#]').each(function() {
+              if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+              && location.hostname == this.hostname
+              && this.hash.replace(/#/,'') ) {
+           var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+           var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+                 if ($target) {
+           var targetOffset = $target.offset().top;
+           $(this).click(function() {
+            $("#nav li a").removeClass("active");
+            $(this).addClass('active');
+           $('html, body').animate({scrollTop: targetOffset}, 1000);
+           return false;
+         });
+      }
+    }
+  });
+});
+                    $('html, body').animate({scrollTop: targetOffset}, 1000);
+
+
+       </script>
+    </header>
+<div id="welcome">
+        <div>
+            <center><header1>GO NEAR ME</header1></center>
+            <center><div id='img' > <img src="walk.png" width="80" height="80" /><img src="bicycle.png" width="80" height="80"/><img src="car.png" width="80" height="80"/></div></center>
+            <br/>
+            <HR WIDTH="50%" SIZE="3"> 
+            <br/>
+            <br/>
+            
+            </div>
+            <div>
+            <label1> How do you want to get there?</label1><div style="margin-left: 850px"><img src="walk.png" width="60" height="60" /><img src="bicycle.png" width="60" height="60"/><img src="car.png" width="60" height="60"/>
+</div>
+<div>
+    <label3> Where do you want to go?</label3><div style="margin-left: 720px"><select class="form-control input-lg" style = "width: 200px; margin-left: 100px">
+      <option value="anything">Show me anything!</option>
+      <option value="tourist">Tourist Destinations</option>
+      <option value="food">Food</option>
+      <option value="museums">Museums</option>
+    </select>
+</div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="buttonHolder">
+  <input value="Find Places Near Me" title="Submitbutton" name="lucky" type="submit" id="btn_i" class = "btn btn-primary btn-lg">
+</div>
+<br/>
+<div class="text">
+<a href="file:///Users/Lucy/Dropbox/gonearme_project/gonearme.html#walk" style="color: #ff3300">Learn More!</a>
+</div>
+
+
+
+          
+        </div>
+    </div>
+
+    <div id="walk">
+        <div >
+            
+        <div class="container">
+   <div class="content">
+       <center><header2>WALK</header2></center> 
+      <center><header3>Find the best places within a walking distance from where you are.</header3></center>
+   </div>
+   <div class="background"></div>
+</div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+         <br/>
+        <br/>
+        <div class="buttonHolder">
+  <input value="Start Walking"; title="Submitbutton" name="lucky" type="submit" id="btn_i" class = "btn btn-primary btn-lg">
+</div>
+    </div>
+
+   <div id="bike">
+        <div>
+          <div class="container">
+   <div class="content">
+       <center><header2>BIKE</header2></center> 
+      <center><header3>Got a Bike? Find the best places you can reach with it.</header3></center>
+   </div>
+   <div class="background"></div>
+</div>
+              
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+         <br/>
+        <br/>
+        <div class="buttonHolder">
+  <input value="Start Biking"; title="Submitbutton" name="lucky" type="submit" id="btn_i" class = "btn btn-primary btn-lg">
+</div>
+    </div>
+       <div id="drive">
+        <div>
+               <div class="container">
+   <div class="content">
+       <center><header2>DRIVE</header2></center> 
+      <center><header3>Do you hate Ankit? Find the best places you can reach with him.</header3></center>
+   </div>
+   <div class="background"></div>
+</div>
+       
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+         <br/>
+        <br/>
+        <div class="buttonHolder">
+  <input value="Start Driving"; title="Submitbutton" name="lucky" type="submit" id="btn_i" class = "btn btn-primary btn-lg">
+</div>
+    </div>
+
+  
+
+    <div id="contact">
+        <div>
+           
+            <header3>Contact Us</header3>
+         
+
+    </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="smoothscroll.js"></script>
+</body>
+</html>
+
