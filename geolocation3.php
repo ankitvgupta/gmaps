@@ -92,7 +92,6 @@ function setAllMap(map) {
 
 function newRequest(){
 
-  alert(traveltype);
   setAllMap(null);
   // Set the default radius based on the mode of transport
   if (traveltype == 'walk'){
@@ -128,12 +127,12 @@ function changeMode(newtype){
   //alert(traveltype);
   traveltype = newtype;
   //alert(newtype);
-
+  newRequest();
 }
+
 $(document).ready(function () {
       initialize();
       $("#panelselect").submit(function (event) {
-        alert("Form submitted");
 
         event.preventDefault();
         newRequest();
