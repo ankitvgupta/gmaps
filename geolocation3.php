@@ -20,10 +20,11 @@
     <script type="text/javascript">
 
 
-
+traveltype = 'walk';
 
     google.maps.visualRefresh = true;
 function initialize() {
+  google.maps.visualRefresh = true;
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
     myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  //
@@ -34,8 +35,10 @@ function initialize() {
       };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);    
 
-    // Default request looks for stores within .5 km.
-    newRequest(500, 'store');
+    // Default request
+    //newRequest();
+
+
     /*
     var request = {
       location: myLatlng,
@@ -61,6 +64,7 @@ function callback(results, status) {
       createMarker(results[i]);
     }
   }
+
 }
 
 function createMarker(place) {
@@ -75,9 +79,29 @@ function createMarker(place) {
     infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5");
     infowindow.open(map, this);
   });
+
 }
 
-function newRequest(radius, type){
+function newRequest(){
+
+  alert(traveltype);
+
+  // Set the default radius based on the mode of transport
+  if (traveltype == 'walk'){
+    radius = 500;
+  }
+  if (traveltype == 'bike'){
+    radius = 200;
+  }
+  if (traveltype == 'drive'){
+    radius = 5000;
+  }
+
+  // Set the default place type
+  type = 'store';
+
+
+  //alert(radius);
    var request = {
       location: myLatlng,
       radius: radius,
@@ -88,24 +112,38 @@ function newRequest(radius, type){
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
+   
 
 }
 
+function changeMode(newtype){
+  //alert(traveltype);
+  traveltype = newtype;
+  //alert(newtype);
 
-google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+}
+$(document).ready(function () {
+      initialize();
+      $("#panelselect").submit(function (event) {
+        alert("Form submitted");
+
+        event.preventDefault();
+        newRequest();
+      });
+ });
+</script>
 
 
   </head>
   <body>
   <div id ="sidediv" style ="position:absolute; z-index: 100;top: 100px;right: 10px;width: 270px;height: 400px; background: white;border-radius: 15px">
-    <br/>
-    <form onsubmit = "newRequest(), return false">
+  <br/>
+  <form id="panelselect">
     <div id="selectorbuttons" style="position: relative; margin-left:40px; width = 100px">
-      <button type="button" class="btn btn-default">Walk</button>
-      <button type="button" class="btn btn-default">Bike</button>
-      <button type="button" class="btn btn-default">Drive</button>
-     </div> 
+      <button type="button" onclick = "changeMode('walk');" class="btn btn-default" id= "walk">Walk</button>
+      <button type="button" onclick = "changeMode('bike');" class="btn btn-default" id = "bike">Bike</button>
+      <button type="button" onclick = "changeMode('drive');" class="btn btn-default" id = "drive">Drive</button>
+    </div> 
     <br/>
     <select class="form-control" style = "width: 100px; margin-left: 100px">
       <option value="anything">Anything</option>
@@ -113,8 +151,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <option value="food">Food</option>
       <option value="museums">Museums</option>
     </select>
-          <button type="submit" class="btn btn-success">Go!</button>
-
+    <input type="submit" class="btn btn-success" value = "Go!"></input>
   </form>
   </div>
    <div id ="bottomdiv" style ="position:absolute; z-index: 100;bottom: 100px;left: 200px; width: 500px;height: 100px; background: white;border-radius: 15px">
