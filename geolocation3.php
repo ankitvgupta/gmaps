@@ -27,6 +27,8 @@ type = 'store';
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var currloc;
+var radius;
+var rad_override = 0;
 
 
 function initialize() {
@@ -43,30 +45,10 @@ function initialize() {
       };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
     directionsDisplay.setMap(map);   
-
-    // Default request
-    //newRequest();
-
-
-    /*
-    var request = {
-      location: myLatlng,
-      radius: 500,
-      types: ['store'],
-      rankBy: google.maps.places.RankBy.PROMINENCE
-    };
-
-    infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-    */
-  
-
     });
   }
-
-  
 }
+
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
@@ -86,7 +68,7 @@ function createMarker(place) {
   markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5" + "</b>" + "<a href=# onclick='calcRoute(" + place.geometry.location.d +  ", " + place.geometry.location.e + ");'>Directions to here</a>" );
+    infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5" + "</br>" + "<a href=# onclick='calcRoute(" + place.geometry.location.d +  ", " + place.geometry.location.e + ");'>Directions to here</a>" );
     infowindow.open(map, this);
   });
 
@@ -98,10 +80,20 @@ function setAllMap(map) {
   }
 }
 
+function changeRadius(newRadius) {
+  radius = newRadius * 1000;
+  rad_override = 1;
+  newRequest();
+}
+
 function newRequest(){
 
   setAllMap(null);
   // Set the default radius based on the mode of transport
+  if (rad_override == 0)
+  {
+
+
   if (traveltype == 'walk'){
     radius = 500;
   }
@@ -111,12 +103,8 @@ function newRequest(){
   if (traveltype == 'drive'){
     radius = 5000;
   }
-
+}
   // Set the default place type
-
-
-
-  //alert(radius);
    var request = {
       location: myLatlng,
       radius: radius,
@@ -131,15 +119,30 @@ function newRequest(){
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
-   
-
 }
 
 function changeMode(newtype){
-  //alert(traveltype);
   traveltype = newtype;
-  //alert(newtype);
+  $("#walkdistance").hide();
+  $("#bikedistance").hide();
+  $("#drivedistance").hide();
+
+  if (newtype == "walk"){
+    $("#walkdistance").show();
+  }
+  else if (newtype == "bike"){
+    $("#bikedistance").show();
+  }
+  else if (newtype == "drive"){
+    $("#drivedistance").show();
+  }
+  rad_override = 0;
   newRequest();
+}
+
+function changeCurrentLocation(newLoc){
+
+  currloc = newLoc;
 }
 
 function changeDestination(newDest){
@@ -151,13 +154,16 @@ function changeDestination(newDest){
   else{
     type = newDest;
   }
-  //alert(newtype);
   newRequest();
 }
+
 function calcRoute(input1, input2) {
- 
+
+  // Set the starting and ending location.
   start = currloc;
   var end = "(" + input1 + ", " + input2 + ")";
+
+  // Make the request, and then change it if it is walking or biking instead of driving.
   var request = {
       origin:start,
       destination:end,
@@ -169,8 +175,6 @@ function calcRoute(input1, input2) {
   else if (traveltype == "bike"){
     request.travelMode = google.maps.TravelMode.BICYCLING;
   }
- 
-
 
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
@@ -182,7 +186,6 @@ function calcRoute(input1, input2) {
 $(document).ready(function () {
       initialize();
       $("#panelselect").submit(function (event) {
-
         event.preventDefault();
         newRequest();
       });
@@ -196,10 +199,38 @@ $(document).ready(function () {
   <br/>
   <form id="panelselect">
     <div id="selectorbuttons" style="position: relative; margin-left:40px; width = 100px">
-      <button type="button" onclick = "changeMode('walk');" class="btn btn-default" id= "walk">Walk</button>
-      <button type="button" onclick = "changeMode('bike');" class="btn btn-default" id = "bike">Bike</button>
-      <button type="button" onclick = "changeMode('drive');" class="btn btn-default" id = "drive">Drive</button>
+      <button type="button" onclick = "changeMode('walk'); $(this).addClass('active'); $('#bike').removeClass('active'); $('#drive').removeClass('active'); " class="btn btn-default" id= "walk">Walk</button>
+      <button type="button" onclick = "changeMode('bike'); $(this).addClass('active'); $('#walk').removeClass('active'); $('#drive').removeClass('active');" class="btn btn-default" id = "bike">Bike</button>
+      <button type="button" onclick = "changeMode('drive');$(this).addClass('active'); $('#bike').removeClass('active'); $('#walk').removeClass('active');" class="btn btn-default" id = "drive">Drive</button>
     </div> 
+
+    <div id="walkdistance" style="position: relative; margin-left:40px; width = 100px">
+      <button type="button" onclick = "changeRadius(.5); $('#customradius').hide()" class="btn btn-default" id= "walk">.5</button>
+      <button type="button" onclick = "changeRadius(1); $('#customradius').hide()" class="btn btn-default" id = "bike">1</button>
+      <button type="button" onclick = "changeRadius(1.5); $('#customradius').hide()" class="btn btn-default" id = "drive">1.5</button>
+      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+    </div> 
+    <div id="bikedistance" style="position: relative; margin-left:40px; width = 100px; display:none">
+      <button type="button" onclick = "changeRadius(1); $('#customradius').hide()" class="btn btn-default" id= "walk">1</button>
+      <button type="button" onclick = "changeRadius(2); $('#customradius').hide()" class="btn btn-default" id = "bike">2</button>
+      <button type="button" onclick = "changeRadius(5); $('#customradius').hide()" class="btn btn-default" id = "drive">5</button>
+      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+
+    </div> 
+    <div id="drivedistance" style="position: relative; margin-left:40px; width = 100px; display:none">
+      <button type="button" onclick = "changeRadius(2); $('#customradius').hide()" class="btn btn-default" id= "walk">2</button>
+      <button type="button" onclick = "changeRadius(5); $('#customradius').hide()" class="btn btn-default" id = "bike">5</button>
+      <button type="button" onclick = "changeRadius(10); $('#customradius').hide()" class="btn btn-default" id = "drive">10</button>
+      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+
+    </div> 
+    <div id="customradius" style="position: relative; margin-left:40px; width = 100px; display:none">
+      <input type="float" onchange = "changeRadius(this.value);" class="btn btn-default" placeholder="New Distance"></input>
+    </div> 
+     <div id="currentlocationcustom" style="position: relative; margin-left:40px; width = 100px;">
+      <input type="text" onchange = "changeCurrentLocation(this.value);" class="btn btn-default" placeholder="New Location"></input>
+    </div> 
+
     <br/>
     <select onchange = "changeDestination(this.value)" class="form-control" style = "width: 100px; margin-left: 100px">
       <option value="anything">Anything</option>
@@ -219,12 +250,11 @@ $(document).ready(function () {
 
 
     </select>
-    <input type="submit" class="btn btn-success" value = "Go!"></input>
   </form>
   </div>
-   <div id ="bottomdiv" style ="position:absolute; z-index: 100;bottom: 100px;left: 200px; width: 500px;height: 100px; background: white;border-radius: 15px">
+  <!-- <div id ="bottomdiv" style ="position:absolute; z-index: 100;bottom: 100px;left: 200px; width: 500px;height: 100px; background: white;border-radius: 15px">
       TESTESTTEST
-  </div>
+  </div> -->
   <div id="map-canvas" style="position: relative"/> 
    
   </body>
