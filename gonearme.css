@@ -41,7 +41,7 @@ header4 {
    margin: 5px 0;
     padding: 0;
     z-index: 1;
-    font-color: white;
+    color: white;
     position: relative;
 
 }
@@ -50,7 +50,14 @@ header4 {
   white-space: nowrap ;
   font-family: Oswald;
   margin-right: 0px;
-  margin-left: 270px;
+  margin-left: 258px;
+}
+.nowrap2 {
+  font-size: 15px;
+  white-space: nowrap ;
+  font-family: "Arvo";
+  margin-right: 0px;
+
 }
 .center { margin: 0 auto; }
 .content{ margin: 0 auto; width: 960px; }

@@ -1,0 +1,14 @@
+body{
+		background:url('img/slide1.jpg') 50% 0 no-repeat fixed;
+}
+
+#rectangle{
+	margin-top: 150px;
+	float: left;
+	text-align: left;
+}
+#rectangle2{
+	margin-top: 150px;
+	float: left;
+	text-align: right;
+}
