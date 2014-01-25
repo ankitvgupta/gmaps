@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="testsidebar.css"/>
+	<link rel="stylesheet" type="text/css" href="bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+
+<body>
+
+
+<div id = "rectangle" class="img-rounded">
+	<br/>
+	<center>Choose Mode</center>
+	<div id="selectorbuttons" style="position: relative; margin-left:55px; width = 100px">
+      <img id ="walk" src="walk.png" width="60" height="60"/>
+      <img id ="bike" src="bicycle.png" width="60" height="60"/>
+      <img id ="drive" src="car.png" width="60" height="60"/>
+    </div> 
+    <br/>
+    <center>Choose Starting Location</center>
+    <div style="margin-left:18px">
+    	<button type="button" class="btn btn-default active">Current Location</button>
+    	<button type="button" class="btn btn-default">Pick a Location</button>
+    </div>
+   	<br/>
+  		<div style = "position:relative; width: 87%; margin-left: auto; margin-right:auto">
+    		<input type="text" class="form-control" placeholder="Type address or location name here">
+  	</div>
+  	<br/>
+  	<center>Choose Distance (in miles)</center>
+  	<div id="walkdistance" style="margin-left:45px">
+  	<button type="button" class="btn btn-default" id="walk">.5</button>
+  	<button type="button" class="btn btn-default" id="bike">1</button>
+  	<button type="button" class="btn btn-default" id="drive">1.5</button>
+  	<button type="button" class="btn btn-default" id="drive">Custom</button>
+  </div>
+  <div id="bikedistance" style="margin-left:53px">
+  	<button type="button" class="btn btn-default" id="walk">1</button>
+  	<button type="button" class="btn btn-default" id="bike">2</button>
+  	<button type="button" class="btn btn-default" id="drive">5</button>
+  	<button type="button" class="btn btn-default" id="drive">Custom</button>
+  </div>
+  <div id="drivedistance" style="margin-left:49px">
+  	<button type="button" class="btn btn-default" id="walk">2</button>
+  	<button type="button" class="btn btn-default" id="bike">5</button>
+  	<button type="button" class="btn btn-default" id="drive">10</button>
+  	<button type="button" class="btn btn-default" id="drive">Custom</button>
+  </div>
+<br/>
+  	<div style = "position:relative; width: 60%; margin-left: auto; margin-right:auto;">
+    		<input type="text" class="form-control" placeholder="New distance (in miles)">
+</div>
+<br/>
+<center>Where do you want to go?</center>
+<div style="position:relative; ">
+	<select class="form-control input-sm" style = "width: 200px; margin-left: auto; margin-right:auto">
+      <option value="anything">Show me anything!</option>
+      <option value="tourist">Tourist Destinations</option>
+      <option value="food">Food</option>
+      <option value="museums">Museums</option>
+    </select>
+
+	
+
+
+
+
+</body>
+</html>

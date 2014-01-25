@@ -1,0 +1,13 @@
+body{
+		background:url('img/slide1.jpg') 50% 0 no-repeat fixed;
+}
+
+#rectangle{
+	width:300px;
+	height:550px;
+	border:1px 
+	solid #000;
+	background-color: white;
+
+}
+
