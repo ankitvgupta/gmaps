@@ -33,6 +33,25 @@ header3 {
     z-index: 1;
     position: relative;
 }
+header4 {
+  font-family: "Arvo";
+   font-weight: normal;
+   font-size: 40px;
+   text-align: center;
+   margin: 5px 0;
+    padding: 0;
+    z-index: 1;
+    font-color: white;
+    position: relative;
+
+}
+.nowrap {
+  font-size: 25px;
+  white-space: nowrap ;
+  font-family: Oswald;
+  margin-right: 0px;
+  margin-left: 270px;
+}
 .center { margin: 0 auto; }
 .content{ margin: 0 auto; width: 960px; }
 .clear { clear: both; }
@@ -178,8 +197,7 @@ buttonsubmit {
 #contact{
 	background: url('img/slide1.jpg');
 
-	height: 10px;
-	padding: 170px 0 0 0;
+
 }
 
 #copyright  { color: #fff; font-family:"Wellfleet";  font-size: 14px; margin-top: 100px; text-align: center;  }
