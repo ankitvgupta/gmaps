@@ -247,9 +247,8 @@ $(document).ready(function () {
       <option value="post_office">Post Office</option>
       <option value="school">School</option>
       <option value="subway_station">Subway Station</option>
-
-
     </select>
+    
   </form>
   </div>
   <!-- <div id ="bottomdiv" style ="position:absolute; z-index: 100;bottom: 100px;left: 200px; width: 500px;height: 100px; background: white;border-radius: 15px">
