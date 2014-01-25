@@ -48,7 +48,8 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
     directionsDisplay.setMap(map);  
       $( "#walk" ).trigger( "click" );
- 
+      $( "#walk1" ).trigger( "click" );
+      $('#destinationtype').val("anything");
     });
   }
 }
@@ -232,23 +233,23 @@ $(document).ready(function () {
     <center>Choose Distance (in miles)</center>
     <center>
     <div id="walkdistance">
-      <button type="button" onclick = "changeRadius(.5); $('#customradius').hide()" class="btn btn-default" id= "walk">.5</button>
-      <button type="button" onclick = "changeRadius(1); $('#customradius').hide()" class="btn btn-default" id = "bike">1</button>
-      <button type="button" onclick = "changeRadius(1.5); $('#customradius').hide()" class="btn btn-default" id = "drive">1.5</button>
-      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+      <button type="button" onclick = "changeRadius(.5); $('#customradius').hide(); $(this).addClass('active'); $('#walk2').removeClass('active'); $('#walk3').removeClass('active'); $('#walkcustom').removeClass('active');" class="btn btn-default" id= "walk1">.5</button>
+      <button type="button" onclick = "changeRadius(1); $('#customradius').hide(); $(this).addClass('active'); $('#walk1').removeClass('active'); $('#walk3').removeClass('active'); $('#walkcustom').removeClass('active');" class="btn btn-default" id = "walk2">1</button>
+      <button type="button" onclick = "changeRadius(1.5); $('#customradius').hide();$(this).addClass('active'); $('#walk2').removeClass('active'); $('#walk1').removeClass('active'); $('#walkcustom').removeClass('active');" class="btn btn-default" id = "walk3">1.5</button>
+      <button type="button" onclick = "$('#customradius').show();$(this).addClass('active'); $('#walk2').removeClass('active'); $('#walk3').removeClass('active'); $('#walk1').removeClass('active');" class="btn btn-default" id = "walkcustom">Custom</button>
   </div>
 
   <div id="bikedistance" style="display:none">
-      <button type="button" onclick = "changeRadius(1); $('#customradius').hide()" class="btn btn-default" id= "walk">1</button>
-      <button type="button" onclick = "changeRadius(2); $('#customradius').hide()" class="btn btn-default" id = "bike">2</button>
-      <button type="button" onclick = "changeRadius(5); $('#customradius').hide()" class="btn btn-default" id = "drive">5</button>
-      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+      <button type="button" onclick = "changeRadius(1); $('#customradius').hide(); $(this).addClass('active'); $('#bike2').removeClass('active'); $('#bike3').removeClass('active'); $('#bikecustom').removeClass('active');" class="btn btn-default" id = "bike1">1</button>
+      <button type="button" onclick = "changeRadius(2); $('#customradius').hide(), $(this).addClass('active'); $('#bike1').removeClass('active'); $('#bike3').removeClass('active'); $('#bikecustom').removeClass('active');" class="btn btn-default" id = "bike2">2</button>
+      <button type="button" onclick = "changeRadius(5); $('#customradius').hide(), $(this).addClass('active'); $('#bike2').removeClass('active'); $('#bike1').removeClass('active'); $('#bikecustom').removeClass('active');" class="btn btn-default" id = "bike3">5</button>
+      <button type="button" onclick = "$('#customradius').show(); $(this).addClass('active'); $('#bike2').removeClass('active'); $('#bike3').removeClass('active'); $('#bike1').removeClass('active');" class="btn btn-default"  id="bikecustom">Custom</button>
   </div>
   <div id="drivedistance" style="display:none">
-      <button type="button" onclick = "changeRadius(2); $('#customradius').hide()" class="btn btn-default" id= "walk">2</button>
-      <button type="button" onclick = "changeRadius(5); $('#customradius').hide()" class="btn btn-default" id = "bike">5</button>
-      <button type="button" onclick = "changeRadius(10); $('#customradius').hide()" class="btn btn-default" id = "drive">10</button>
-      <button type="button" onclick = "$('#customradius').show();" class="btn btn-default" id = "drive">Custom</button>
+      <button type="button" onclick = "changeRadius(2); $('#customradius').hide(); $(this).addClass('active'); $('#drive2').removeClass('active'); $('#drive3').removeClass('active'); $('#drivecustom').removeClass('active');" class="btn btn-default" id="drive1">2</button>
+      <button type="button" onclick = "changeRadius(5); $('#customradius').hide(); $(this).addClass('active'); $('#drive1').removeClass('active'); $('#drive3').removeClass('active'); $('#drivecustom').removeClass('active');" class="btn btn-default" id="drive2">5</button>
+      <button type="button" onclick = "changeRadius(10); $('#customradius').hide(); $(this).addClass('active'); $('#drive2').removeClass('active'); $('#drive1').removeClass('active'); $('#drivecustom').removeClass('active');" class="btn btn-default" id="drive3">10</button>
+      <button type="button" onclick = "$('#customradius').show(); $(this).addClass('active'); $('#drive2').removeClass('active'); $('#drive3').removeClass('active'); $('#drive1').removeClass('active');" class="btn btn-default" id="drivecustom">Custom</button>
   </div>
   </center>
 <br/>
@@ -258,7 +259,7 @@ $(document).ready(function () {
 <br/>
 <center>Where do you want to go?</center>
 <div style="position:relative; ">
-  <select onchange = "changeDestination(this.value)" class="form-control input-sm" style = "margin-left: auto; margin-right:auto; width: 200px">
+  <select id = "destinationtype" onchange = "changeDestination(this.value)" class="form-control input-sm" style = "margin-left: auto; margin-right:auto; width: 200px">
       <option value="anything">Anything</option>
       <option value="food">Food</option>
       <option value="museum">Museums</option>
