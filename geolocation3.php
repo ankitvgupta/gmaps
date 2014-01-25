@@ -22,19 +22,27 @@
 
 traveltype = 'walk';
 var markers = [];
+google.maps.visualRefresh = true;
+type = 'store';
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var currloc;
 
-    google.maps.visualRefresh = true;
+
 function initialize() {
   google.maps.visualRefresh = true;
+  directionsDisplay = new google.maps.DirectionsRenderer();
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
-    myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  //
+    myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    currloc = myLatlng;  //
     var mapOptions = 
       {
         zoom: 17,
         center: myLatlng
       };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);    
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
+    directionsDisplay.setMap(map);   
 
     // Default request
     //newRequest();
@@ -78,7 +86,7 @@ function createMarker(place) {
   markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5");
+    infowindow.setContent("<b>" + place.name + "</b>" + ', ' + place.vicinity + "<br/>" + "Rating: " + place.rating+"/5" + "</b>" + "<a href=# onclick='calcRoute(" + place.geometry.location.d +  ", " + place.geometry.location.e + ");'>Directions to here</a>" );
     infowindow.open(map, this);
   });
 
@@ -105,7 +113,7 @@ function newRequest(){
   }
 
   // Set the default place type
-  type = 'store';
+
 
 
   //alert(radius);
@@ -116,6 +124,10 @@ function newRequest(){
       rankBy: google.maps.places.RankBy.PROMINENCE
     };
 
+    if(type == ""){
+      delete request.types;
+    }
+    
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
@@ -128,6 +140,43 @@ function changeMode(newtype){
   traveltype = newtype;
   //alert(newtype);
   newRequest();
+}
+
+function changeDestination(newDest){
+
+  if (newDest == 'anything')
+  {
+    type = "";
+  } 
+  else{
+    type = newDest;
+  }
+  //alert(newtype);
+  newRequest();
+}
+function calcRoute(input1, input2) {
+ 
+  start = currloc;
+  var end = "(" + input1 + ", " + input2 + ")";
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.TravelMode.DRIVING
+  };
+  if (traveltype == "walk"){
+    request.travelMode = google.maps.TravelMode.WALKING;
+  }
+  else if (traveltype == "bike"){
+    request.travelMode = google.maps.TravelMode.BICYCLING;
+  }
+ 
+
+
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
 }
 
 $(document).ready(function () {
@@ -152,11 +201,23 @@ $(document).ready(function () {
       <button type="button" onclick = "changeMode('drive');" class="btn btn-default" id = "drive">Drive</button>
     </div> 
     <br/>
-    <select class="form-control" style = "width: 100px; margin-left: 100px">
+    <select onchange = "changeDestination(this.value)" class="form-control" style = "width: 100px; margin-left: 100px">
       <option value="anything">Anything</option>
-      <option value="tourist">Tourist Destinations</option>
       <option value="food">Food</option>
-      <option value="museums">Museums</option>
+      <option value="museum">Museums</option>
+      <option value="amusement_park">Amusement Park</option>
+      <option value="bank">Bank</option>
+      <option value="doctor">Doctor</option>
+      <option value="gym">Gym</option>
+      <option value="library">Library</option>
+      <option value="movie_rental">Movie Rental</option>
+      <option value="park">Park</option>
+      <option value="pharmacy">Pharmacy</option>
+      <option value="post_office">Post Office</option>
+      <option value="school">School</option>
+      <option value="subway_station">Subway Station</option>
+
+
     </select>
     <input type="submit" class="btn btn-success" value = "Go!"></input>
   </form>
